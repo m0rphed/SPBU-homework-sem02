@@ -9,4 +9,4 @@ before_build:
   - nuget restore %solution_path%
 
 build_script:
-	- msbuild %solution_path%
+- msbuild %solution_path%
