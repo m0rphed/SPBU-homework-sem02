@@ -78,7 +78,7 @@
         [Test]
         public void ErrorOnEmptyInput()
         {
-            Assert.Throws<Exception>(() =>
+            Assert.Throws<ArgumentException>(() =>
             {
                 var c = new Calculator(new StackFromArray<string>(100));
                 c.Evaluate("");
@@ -88,7 +88,7 @@
         [Test]
         public void ErrorOnNonDoubleFinalResult()
         {
-            Assert.Throws<Exception>(() =>
+            Assert.Throws<ArgumentException>(() =>
             {
                 var c = new Calculator(new StackFromArray<string>(100));
                 c.Evaluate("Not_A_Double 10 1 /");
@@ -98,7 +98,7 @@
         [Test]
         public void ErrorOnUnsupportedOperation()
         {
-            Assert.Throws<Exception>(() =>
+            Assert.Throws<ArgumentException>(() =>
             {
                 var c = new Calculator(new StackFromArray<string>(100));
                 c.Evaluate("10 1 Z");

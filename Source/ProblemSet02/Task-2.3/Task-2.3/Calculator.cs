@@ -15,15 +15,14 @@
         {
             if (string.IsNullOrEmpty(input))
             {
-                throw new Exception("Input is Null or Empty");
+                throw new ArgumentException("Input is Null or Empty");
             }
 
             var arr = input.Split(' ');
 
             foreach (var item in arr)
             {
-                double res;
-                if (double.TryParse(item, out res))
+                if (double.TryParse(item, out var res))
                 {
                     this.stack.Push(item);
                 }
@@ -51,7 +50,7 @@
             }
         }
 
-        private void PreformBinaryOperation(Func<double, double, double> func)
+        private void PerformBinaryOperation(Func<double, double, double> func)
         {
             var right = GetNumberFromStack();
             var left = GetNumberFromStack();
@@ -64,19 +63,19 @@
             switch (item)
             {
                 case "+":
-                    PreformBinaryOperation((a, b) => a + b);
+                    PerformBinaryOperation((a, b) => a + b);
                     break;
                 case "-":
-                    PreformBinaryOperation((a, b) => a - b);
+                    PerformBinaryOperation((a, b) => a - b);
                     break;
                 case "*":
-                    PreformBinaryOperation((a, b) => a * b);
+                    PerformBinaryOperation((a, b) => a * b);
                     break;
                 case "/":
-                    PreformBinaryOperation((a, b) => a / b);
+                    PerformBinaryOperation((a, b) => a / b);
                     break;
                 default:
-                    throw new Exception("Unsupported operation");
+                    throw new ArgumentException("Unsupported operation");
             }
         }
 

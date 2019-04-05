@@ -36,6 +36,18 @@
 
         public void Push(ElementType data)
         {
+            if (Count >= _array.Length)
+            {
+                var expandedArray = new ElementType[_array.Length * 2];
+
+                for (int i = 0; i < _array.Length; ++i)
+                {
+                    expandedArray[i] = _array[i];
+                }
+
+                _array = expandedArray;
+            }
+
             _array[Count] = data;
             Count++;
         }
