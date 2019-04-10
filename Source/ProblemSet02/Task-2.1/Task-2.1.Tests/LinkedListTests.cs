@@ -1,5 +1,6 @@
 ﻿namespace ProblemSet02.Task01.Tests
 {
+    using System;
     using NUnit.Framework;
     using ProblemSet02.Task01;
 
@@ -9,7 +10,7 @@
         [Test]
         public void TestSimpleExample()
         {
-            int length = 10;
+            const int length = 10;
             var sut = new LinkedList();
 
             // transform empty list to:
