@@ -48,7 +48,7 @@
 
         /// <summary>
         /// Adds new element on specified position
-        /// Indecies starts from zero
+        /// Indexes starts from zero
         /// </summary>
         /// <param name="value">new value to add</param>
         /// <param name="position">index in the list</param>
