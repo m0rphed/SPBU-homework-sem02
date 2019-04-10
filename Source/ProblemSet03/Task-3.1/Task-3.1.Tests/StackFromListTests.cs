@@ -7,20 +7,26 @@
     [TestFixture]
     public class StackFromListTests
     {
+        private StackFromArray<int> _sut;
+
+        [SetUp]
+        public void Initialize()
+        {
+            _sut = new StackFromArray<int>(100);
+        }
+
         [Test]
         public void TestIntOrder()
         {
-            var s = new StackFromList<int>();
+            _sut.Push(1);
+            _sut.Push(2);
+            _sut.Push(3);
 
-            s.Push(1);
-            s.Push(2);
-            s.Push(3);
-
-            Assert.AreEqual(3, s.Count);
-            Assert.AreEqual(3, s.Pop());
-            Assert.AreEqual(2, s.Pop());
-            Assert.AreEqual(1, s.Pop());
-            Assert.AreEqual(0, s.Count);
+            Assert.AreEqual(3, _sut.Count);
+            Assert.AreEqual(3, _sut.Pop());
+            Assert.AreEqual(2, _sut.Pop());
+            Assert.AreEqual(1, _sut.Pop());
+            Assert.AreEqual(0, _sut.Count);
         }
 
         [Test]
@@ -28,8 +34,7 @@
         {
             Assert.Throws<Exception>(() =>
             {
-                StackFromList<int> sut = new StackFromList<int>();
-                sut.Pop();
+                _sut.Pop();
             }, "Could not pop from empty stack");
         }
     }

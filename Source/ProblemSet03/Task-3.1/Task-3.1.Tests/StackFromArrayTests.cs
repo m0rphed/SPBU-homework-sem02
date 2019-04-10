@@ -6,36 +6,40 @@
     [TestFixture]
     public class StackFromArrayTests
     {
+        private StackFromArray<int> _sut;
+
+        [SetUp]
+        public void Initialize()
+        {
+            _sut = new StackFromArray<int>(100);
+        }
+
         [Test]
         public void TestIntOrder()
         {
-            var s = new StackFromArray<int>(100);
+            _sut.Push(1);
+            _sut.Push(2);
+            _sut.Push(3);
 
-            s.Push(1);
-            s.Push(2);
-            s.Push(3);
-
-            Assert.AreEqual(3, s.Count);
-            Assert.AreEqual(3, s.Pop());
-            Assert.AreEqual(2, s.Pop());
-            Assert.AreEqual(1, s.Pop());
-            Assert.AreEqual(0, s.Count);
+            Assert.AreEqual(3, _sut.Count);
+            Assert.AreEqual(3, _sut.Pop());
+            Assert.AreEqual(2, _sut.Pop());
+            Assert.AreEqual(1, _sut.Pop());
+            Assert.AreEqual(0, _sut.Count);
         }
 
         [Test]
         public void TestStackOnArrayExpansion()
         {
-            var s = new StackFromArray<int>(1);
+            _sut.Push(1);
+            _sut.Push(2);
+            _sut.Push(3);
 
-            s.Push(1);
-            s.Push(2);
-            s.Push(3);
-
-            Assert.AreEqual(3, s.Count);
-            Assert.AreEqual(3, s.Pop());
-            Assert.AreEqual(2, s.Pop());
-            Assert.AreEqual(1, s.Pop());
-            Assert.AreEqual(0, s.Count);
+            Assert.AreEqual(3, _sut.Count);
+            Assert.AreEqual(3, _sut.Pop());
+            Assert.AreEqual(2, _sut.Pop());
+            Assert.AreEqual(1, _sut.Pop());
+            Assert.AreEqual(0, _sut.Count);
         }
     }
 }
