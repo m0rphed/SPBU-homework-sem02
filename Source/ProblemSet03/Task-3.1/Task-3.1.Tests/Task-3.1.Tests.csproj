@@ -58,9 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculatorTests.cs" />
-    <Compile Include="StackFromArrayTests.cs" />
-    <Compile Include="StackFromListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StackImplementationsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

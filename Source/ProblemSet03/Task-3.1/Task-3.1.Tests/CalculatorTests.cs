@@ -7,38 +7,29 @@
     /// <summary>
     /// Provides two different implementations of <see cref="IStack{T}"/>.
     /// </summary>
-    public class MyFixtureData
+    public static class MyFixtureData
     {
-        public static Func<IStack<string>> buildFromArray = () => new StackFromArray<string>(100);
-        public static Func<IStack<string>> buildFromList = () => new StackFromList<string>();
+        private static readonly Func<IStack<string>> buildFromArray = () => new StackFromArray<string>(100);
+        private static readonly Func<IStack<string>> buildFromList = () => new StackFromList<string>();
 
-        public static object[] FixtureParms
+        public static object[] FixtureParms => new object[]
         {
-            get
-            {
-                return new object[]
-                {
-                    new object[] { buildFromArray, "From array" },
-                    new object[] { buildFromList, "From list" }
-                };
-            }
-        }
+            new object[] { buildFromArray, "From array" },
+            new object[] { buildFromList, "From list" }
+        };
     }
 
     [TestFixtureSource(typeof(MyFixtureData), "FixtureParms")]
     public class CalculatorTests
     {
-        private Func<IStack<string>> _createStack;
+        private readonly Func<IStack<string>> _createStack;
 
         public CalculatorTests(Func<IStack<string>> stack, string testName)
         {
             _createStack = stack;
         }
 
-        public Calculator CreateCalculator()
-        {
-            return new Calculator(_createStack());
-        }
+        private Calculator CreateCalculator() => new Calculator(_createStack());
 
         [Test]
         public void TestAddOperation()
@@ -92,7 +83,7 @@
         [Test]
         public void ErrorOnOpButNoOperands()
         {
-            Assert.Throws<Exception>(() =>
+            Assert.Throws<ApplicationException>(() =>
             {
                 CreateCalculator().Evaluate("*");
             }, "Not enough operands!");

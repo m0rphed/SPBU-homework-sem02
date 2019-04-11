@@ -27,7 +27,7 @@
         {
             if (Count == 0)
             {
-                throw new Exception("Stack is empty");
+                throw new ApplicationException("Stack is empty");
             }
 
             Count--;

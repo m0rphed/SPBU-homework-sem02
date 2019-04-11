@@ -18,7 +18,7 @@
         {
             if (Count == 0)
             {
-                throw new Exception("Could not pop from empty stack");
+                throw new ApplicationException("Could not pop from empty stack");
             }
 
             Count--;

@@ -1,6 +1,7 @@
 ﻿namespace ProblemSet03.Task01
 {
     using System;
+    using System.Globalization;
 
     public class Calculator
     {
@@ -34,7 +35,7 @@
 
             if (stack.Count != 1)
             {
-                throw new Exception("Invalid expression");
+                throw new ApplicationException("Invalid expression");
             }
 
             var finalItem = stack.Pop();
@@ -46,7 +47,7 @@
             }
             else
             {
-                throw new Exception("Invalid expression");
+                throw new ApplicationException("Invalid expression");
             }
         }
 
@@ -55,7 +56,7 @@
             var right = GetNumberFromStack();
             var left = GetNumberFromStack();
 
-            stack.Push(func(left, right).ToString());
+            stack.Push(func(left, right).ToString(CultureInfo.InvariantCulture));
         }
 
         private void PerformOperation(string item)
@@ -83,7 +84,7 @@
         {
             if (stack.Count == 0)
             {
-                throw new Exception("Not enough operands!");
+                throw new ApplicationException("Not enough operands!");
             }
 
             return double.Parse(stack.Pop());
