@@ -7,6 +7,7 @@ environment:
   - solution_path: Source\ProblemSet02\Task-2.3\Task-2.3.sln
   - solution_path: Source\ProblemSet03\Task-3.1\Task-3.1.sln
   
+  
 before_build:
   - nuget restore %solution_path%
 
