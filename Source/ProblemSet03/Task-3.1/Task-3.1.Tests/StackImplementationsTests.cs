@@ -17,8 +17,8 @@
 
             public static object[] FixtureParms => new object[]
             {
-            new object[] { buildFromArray, "From array" },
-            new object[] { buildFromList, "From list" }
+                new object[] { buildFromArray, "From array" },
+                new object[] { buildFromList, "From list" }
             };
         }
 
