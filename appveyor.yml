@@ -5,6 +5,7 @@ environment:
   matrix:
   - solution_path: Source\ProblemSet01\ProblemSet01\ProblemSet01.sln
   - solution_path: Source\ProblemSet02\Task-2.1\Task-2.1.sln
+  - solution_path: Source\ProblemSet02\Task-2.2\Task-2.2.sln
 
 before_build:
   - nuget restore %solution_path%
