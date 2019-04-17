@@ -1,5 +1,7 @@
 ﻿namespace ProblemSet02.Task01
 {
+    using System;
+
     /// <summary>
     /// Class implements linked list data structure
     /// </summary>
@@ -46,7 +48,7 @@
 
         /// <summary>
         /// Adds new element on specified position
-        /// Indecies starts from zero
+        /// Indexes starts from zero
         /// </summary>
         /// <param name="value">new value to add</param>
         /// <param name="position">index in the list</param>
@@ -54,7 +56,7 @@
         {
             if (position < 0 || position > Length)
             {
-                throw new IndexOutOfRangeException("Incorrect position");
+                throw new IndexOutOfRangeException($"Postition {position} is incorrect");
             }
 
             if (position == 0)
@@ -65,12 +67,7 @@
                 return;
             }
 
-            var cursor = head;
-            for (var i = 0; i < position - 1; ++i)
-            {
-                cursor = cursor.Next;
-            }
-
+            var cursor = GetElementByPosition(position - 1);
             var newElement = new ListElement(value, cursor.Next);
             cursor.Next = newElement;
             ++Length;
@@ -85,16 +82,23 @@
         {
             if (position < 0 || position >= Length)
             {
-                throw new IndexOutOfRangeException("Incorrect position");
+                throw new IndexOutOfRangeException($"Postition {position} is incorrect");
             }
 
+            var cursor = GetElementByPosition(position);
+            return cursor.Value;
+        }
+
+        ListElement GetElementByPosition(int position)
+        {
             var cursor = head;
             for (var i = 0; i < position; ++i)
             {
                 cursor = cursor.Next;
             }
 
-            return cursor.Value;
+            return cursor;
+
         }
 
         /// <summary>
@@ -102,18 +106,14 @@
         /// </summary>
         /// <param name="value">new value for the element on specified position</param>
         /// <param name="position">index of element to change</param>
-        public void RsetValueOnPosition(int value, int position)
+        public void ResetValueOnPosition(int value, int position)
         {
             if (position < 0 || position >= Length)
             {
-                throw new IndexOutOfRangeException("Incorrect position");
+                throw new IndexOutOfRangeException($"Postition {position} is incorrect");
             }
 
-            var cursor = head;
-            for (var i = 0; i < position; ++i)
-            {
-                cursor = cursor.Next;
-            }
+            var cursor = GetElementByPosition(position);
 
             cursor.Value = value;
         }
@@ -131,7 +131,7 @@
 
             if (position < 0 || position >= Length)
             {
-                throw new IndexOutOfRangeException("Incorrect position");
+                throw new IndexOutOfRangeException($"Postition {position} is incorrect");
             }
 
             if (position == 0)
@@ -141,12 +141,7 @@
                 return;
             }
 
-            var cursor = head;
-            for (var i = 0; i < position - 1; ++i)
-            {
-                cursor = cursor.Next;
-            }
-
+            var cursor = GetElementByPosition(position - 1);
             cursor.Next = cursor.Next.Next;
             --Length;
         }

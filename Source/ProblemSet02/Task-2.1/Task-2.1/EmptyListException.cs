@@ -13,7 +13,10 @@
         {
         }
 
-        // Throws with custom message (could be specified)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmptyListException"/> class.
+        /// </summary>
+        /// <param name="message">Custom message that could be specified</param>
         public EmptyListException(string message)
             : base(message)
         {
