@@ -9,8 +9,6 @@
     /// <typeparam name="T">type of values in HashTable</typeparam>
     public class HashTableImplementation<T>
     {
-        public const int TableSize = 128;
-
         private static readonly IHashFunction<T> DefaultHashFunction = new HashFromGenericFunction<T>();
 
         // Holds hash function
@@ -21,7 +19,12 @@
         /// </summary>
         private CustomLinkedList<T>[] _buckets;
 
-        public HashTableImplementation(int newTableSize = TableSize, IHashFunction<T> hashFunction = null)
+        public HashTableImplementation()
+            : this(128, null)
+        {
+        }
+
+        public HashTableImplementation(int newTableSize, IHashFunction<T> hashFunction = null)
         {
             _buckets = new CustomLinkedList<T>[newTableSize];
             _hashFunction = hashFunction ?? DefaultHashFunction;
@@ -50,11 +53,13 @@
             var index = GetBucketIndex(val);
             var list = _buckets[index];
 
-            if (list != null && list.Contains(val))
+            if (list == null || !list.Contains(val))
             {
-                list.RemoveElementByValue(val);
-                --Count;
+                return;
             }
+
+            list.RemoveElementByValue(val);
+            --Count;
         }
 
         /// <summary>
@@ -75,7 +80,6 @@
         /// </summary>
         private void Resize()
         {
-
             var oldBuckets = _buckets;
             _buckets = new CustomLinkedList<T>[2 * _buckets.Length];
             Count = 0;

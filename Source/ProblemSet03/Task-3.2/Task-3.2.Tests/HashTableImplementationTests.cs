@@ -10,7 +10,7 @@
     public class HashTableImplementationTests
     {
         [Test]
-        public void FindSingleInsertedItem()
+        public static void FindSingleInsertedItem()
         {
             var sut = new HashTableImplementation<string>();
             sut.Add("собачка");
@@ -19,7 +19,7 @@
         }
 
         [Test]
-        public void RemoveValuesFromTable()
+        public static void RemoveValuesFromTable()
         {
             var sut = new HashTableImplementation<string>();
 
@@ -36,7 +36,7 @@
         }
 
         [Test]
-        public void TestMultipleResize()
+        public static void TestMultipleResize()
         {
             const int maxElementsToUse = 100000;
             var sut = new HashTableImplementation<string>(128);
@@ -75,7 +75,7 @@
         }
 
         [Test]
-        public void TwoSameValues()
+        public static void TwoSameValues()
         {
             var sut = new HashTableImplementation<string>();
 

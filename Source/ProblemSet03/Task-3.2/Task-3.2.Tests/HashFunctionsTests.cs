@@ -15,10 +15,11 @@
         {
             _stringHash = new HashFromStringFunction();
             _genericHashForString = new HashFromGenericFunction<string>();
+            _genericHashForInt = new HashFromGenericFunction<int>();
             _intHash = new HashFromIntFunction();
         }
 
-        public void AddRemoveOneItem<T>(IHashFunction<T> func, T[] elements)
+        private static void AddRemoveOneItem<T>(IHashFunction<T> func, T[] elements)
         {
             var sut = new HashTableImplementation<T>(128, func);
             sut.Add(elements[0]);
@@ -43,7 +44,7 @@
         public void AddAndRemoveItemUsingCustomGenericIntHash() =>
             AddRemoveOneItem<int>(_genericHashForInt, new[] { 11 });
 
-        public void AddRemoveThreeElements<T>(IHashFunction<T> func, T[] e)
+        private static void AddRemoveThreeElements<T>(IHashFunction<T> func, T[] e)
         {
             var sut = new HashTableImplementation<T>(128, func);
 
@@ -67,5 +68,13 @@
         [Test]
         public void AddRemoveThreeElementsUsingCustomGenericStringHash() =>
             AddRemoveThreeElements<string>(_genericHashForString, new[] { "Alpha", "Beta", "Gamma" });
+
+        [Test]
+        public void AddRemoveThreeElementsUsingCustomIntHash() =>
+            AddRemoveThreeElements<int>(_intHash, new[] { 3, 5, 7 });
+
+        [Test]
+        public void AddRemoveThreeElementsUsingCustomGenericIntHash() =>
+            AddRemoveThreeElements<int>(_genericHashForInt, new[] { 3, 5, 7 });
     }
 }
