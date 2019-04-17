@@ -10,7 +10,7 @@
     <ProjectGuid>{460B3505-B001-46D8-8628-FDFD67881EBE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Task_2._2.Tests</RootNamespace>
+    <RootNamespace>ProblemSet02.Task02.Tests</RootNamespace>
     <AssemblyName>Task-2.2.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

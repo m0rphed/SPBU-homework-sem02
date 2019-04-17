@@ -2,6 +2,7 @@
 {
     using System;
 
+    /// <inheritdoc />
     /// <summary>
     /// Exception is thrown when the operation cannot be performed
     /// on empty linked list

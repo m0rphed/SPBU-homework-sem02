@@ -24,7 +24,7 @@
         public bool IsEmpty() => Length == 0;
 
         /// <summary>
-        /// Checks if value is alredy in the list
+        /// Checks if value is already in the list
         /// </summary>
         /// <param name="value">value to check</param>
         /// <returns>true, if value is in the list, otherwise false</returns>
@@ -55,7 +55,7 @@
         {
             if (position < 0 || position > Length)
             {
-                throw new IndexOutOfRangeException($"Postition {position} is incorrect");
+                throw new IndexOutOfRangeException($"Position {position} is incorrect");
             }
 
             if (position == 0)
@@ -81,14 +81,14 @@
         {
             if (position < 0 || position >= Length)
             {
-                throw new IndexOutOfRangeException($"Postition {position} is incorrect");
+                throw new IndexOutOfRangeException($"Position {position} is incorrect");
             }
 
             var cursor = GetElementByPosition(position);
             return cursor.Value;
         }
 
-        CustomLinkedListElement<T> GetElementByPosition(int position)
+        public CustomLinkedListElement<T> GetElementByPosition(int position)
         {
             var cursor = Head;
             for (var i = 0; i < position; ++i)
@@ -97,7 +97,6 @@
             }
 
             return cursor;
-
         }
 
         /// <summary>
@@ -109,7 +108,7 @@
         {
             if (position < 0 || position >= Length)
             {
-                throw new IndexOutOfRangeException($"Postition {position} is incorrect");
+                throw new IndexOutOfRangeException($"Position {position} is incorrect");
             }
 
             var cursor = GetElementByPosition(position);
@@ -130,7 +129,7 @@
 
             if (position < 0 || position >= Length)
             {
-                throw new IndexOutOfRangeException($"Postition {position} is incorrect");
+                throw new IndexOutOfRangeException($"Position {position} is incorrect");
             }
 
             if (position == 0)
@@ -185,6 +184,6 @@
             return false;
         }
 
-        private bool ElementEquals(T left, T right) => object.Equals(left, right);
+        private static bool ElementEquals(T left, T right) => object.Equals(left, right);
     }
 }

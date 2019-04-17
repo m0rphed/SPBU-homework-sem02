@@ -1,14 +1,16 @@
-﻿namespace ProblemSet02.Task02
+﻿namespace ProblemSet02.Task02.Tests
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
     using NUnit.Framework;
 
     [TestFixture]
     public class HashTableImplementationTests
     {
         [Test]
-        public void RemoveIfContainedInTable()
+        public void FindSingleInsertedItem()
         {
             var sut = new HashTableImplementation<string>();
             sut.Add("собачка");
@@ -34,59 +36,41 @@
         }
 
         [Test]
-        public void AddManyThenRemoveMany()
+        public void TestMultipleResize()
         {
-            var sut = new HashTableImplementation<string>();
+            const int maxElementsToUse = 100000;
+            var sut = new HashTableImplementation<string>(128);
 
-            sut.Add("Овечка Долли");
-            sut.Add("Овечка Долли");
-            sut.Add("Овечка Долли");
-            Assert.AreEqual(3, sut.Count);
-
-            sut.Remove("Овечка Долли");
-            sut.Remove("Овечка Долли");
-            Assert.IsTrue(sut.Contains("Овечка Долли"));
-            Assert.AreEqual(1, sut.Count);
-
-            sut.Remove("Овечка Долли");
-            Assert.IsFalse(sut.Contains("Овечка Долли"));
-            Assert.AreEqual(0, sut.Count);
-        }
-
-        [Test]
-        public void HeavyUsage()
-        {
-            var vals = new List<string>();
+            // creates pseudo-random unique values
+            var testValues = new HashSet<string>();
             var r = new Random(1);
-            var sut = new HashTableImplementation<string>();
-
-            for (int i = 0; i < 100000; i++)
+            for (var i = 0; i < maxElementsToUse; ++i)
             {
-                var val = r.NextDouble().ToString();
-                sut.Add(val);
-                vals.Add(val);
+                var val = r.NextDouble().ToString(CultureInfo.InvariantCulture);
+                testValues.Add(val);
             }
 
-            var count = 0;
+            var testValuesList = testValues.ToList();
 
-            foreach(var item in vals)
+            // populates hash table
+            foreach (var item in testValuesList)
             {
-                if (item == "0.534899531647051")
-                {
-                    count++;
-                }
+                sut.Add(item);
             }
 
-            Assert.AreEqual(1, count);
+            // all values should be inserted
+            Assert.AreEqual(testValuesList.Count, sut.Count);
 
-            while (vals.Count > 0)
+            // pseudo-randomly removes values
+            while (testValuesList.Count > 0)
             {
-                var index = r.Next(0, vals.Count - 1);
-                var val = vals[index];
-                vals.RemoveAt(index);
+                var index = r.Next(0, testValuesList.Count - 1);
+                var val = testValuesList[index];
+                testValuesList.RemoveAt(index);
                 sut.Remove(val);
             }
 
+            // all values should be removed
             Assert.AreEqual(0, sut.Count);
         }
 
@@ -97,13 +81,12 @@
 
             sut.Add("a bird");
             sut.Add("a bird");
-            Assert.AreEqual(2, sut.Count);
+            Assert.AreEqual(1, sut.Count);
             Assert.IsTrue(sut.Contains("a bird"));
 
             sut.Remove("a bird");
-            Assert.IsTrue(sut.Contains("a bird"));
-            sut.Remove("a bird");
             Assert.IsFalse(sut.Contains("a bird"));
+
             Assert.AreEqual(0, sut.Count);
         }
     }

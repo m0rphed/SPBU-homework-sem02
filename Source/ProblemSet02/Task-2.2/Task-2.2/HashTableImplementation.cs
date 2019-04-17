@@ -14,11 +14,11 @@
         /// <summary>
         /// Yet another amateur implementation of linked list
         /// </summary>
-        private CustomLinkedList<T>[] buckets;
+        private CustomLinkedList<T>[] _buckets;
 
         public HashTableImplementation(int newTableSize = TableSize)
         {
-            buckets = new CustomLinkedList<T>[newTableSize];
+            _buckets = new CustomLinkedList<T>[newTableSize];
         }
 
         /// <summary>
@@ -30,29 +30,9 @@
         /// Adds new value to the hash table
         /// </summary>
         /// <param name="val">new value to add</param>
-        public  void Add(T val)
+        public void Add(T val)
         {
             Add(val, true);
-        }
-
-        private void Add(T val, bool checkResize)
-        {
-              if (checkResize && Count >= 2 * buckets.Length)
-            {
-                Resize();
-            }
-
-            var index = GetBucketIndex(val);
-            var list = buckets[index];
-
-            if (list == null)
-            {
-                list = new CustomLinkedList<T>();
-                buckets[index] = list;
-            }
-
-            list.AddValueOnPosition(val, 0);
-            ++Count;
         }
 
         /// <summary>
@@ -62,14 +42,12 @@
         public void Remove(T val)
         {
             var index = GetBucketIndex(val);
-            var list = buckets[index];
+            var list = _buckets[index];
 
-            if (list != null)
+            if (list != null && list.Contains(val))
             {
-                if (list.RemoveElementByValue(val))
-                {
-                    --Count;
-                }
+                list.RemoveElementByValue(val);
+                --Count;
             }
         }
 
@@ -81,9 +59,9 @@
         public bool Contains(T val)
         {
             var index = GetBucketIndex(val);
-            var list = buckets[index];
+            var list = _buckets[index];
 
-            return list == null ? false : list.Contains(val);
+            return list != null && list.Contains(val);
         }
 
         /// <summary>
@@ -92,8 +70,9 @@
         private void Resize()
         {
 
-            var oldBuckets = buckets;
-            buckets = new CustomLinkedList<T>[2 * buckets.Length];
+            var oldBuckets = _buckets;
+            _buckets = new CustomLinkedList<T>[2 * _buckets.Length];
+            Count = 0;
 
             foreach (var bucket in oldBuckets)
             {
@@ -110,6 +89,31 @@
             }
         }
 
-        private int GetBucketIndex(T val) => Math.Abs(val.GetHashCode()) % buckets.Length;
+        private void Add(T val, bool checkResize)
+        {
+            if (checkResize && Count >= 2 * _buckets.Length)
+            {
+                Resize();
+            }
+
+            var index = GetBucketIndex(val);
+            var list = _buckets[index];
+
+            if (list == null)
+            {
+                list = new CustomLinkedList<T>();
+                _buckets[index] = list;
+            }
+
+            if (list.Contains(val))
+            {
+                return;
+            }
+
+            list.AddValueOnPosition(val, 0);
+            ++Count;
+        }
+
+        private int GetBucketIndex(T val) => Math.Abs(val.GetHashCode()) % _buckets.Length;
     }
 }
