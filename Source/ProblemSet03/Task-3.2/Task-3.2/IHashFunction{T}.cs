@@ -4,7 +4,7 @@
     /// Hash function interface
     /// </summary>
     /// <typeparam name="T">specified type of value</typeparam>
-    public interface IHashFunction<T>
+    public interface IHashFunction<in T>
     {
         /// <summary>
         /// Gets hash of specified value
