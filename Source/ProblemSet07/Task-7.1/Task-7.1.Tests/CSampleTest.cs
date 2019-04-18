@@ -19,7 +19,7 @@ namespace Task_3._2.Tests
             c.OnTextChange += (d) => { res = d; };
             c.HandleDigit(1);
             Assert.AreEqual("1", res);
-            c.HandleSymbol(OperationSymbol.Dot);
+            c.HandleOperation(OperationType.Dot);
             Assert.AreEqual("1.", res);
             c.HandleDigit(1);
             Assert.AreEqual("1.1", res);
