@@ -1,6 +1,6 @@
 ﻿namespace Task_7._1
 {
-    public enum OperationType
+    public enum SymbolType
     {
         Divide,
         Multiply,
@@ -10,7 +10,7 @@
         Equal,
         Negate,
         Dot,
-        Reset, // clear or AC
+        Reset, // clear or "C"
         None,
     }
 }

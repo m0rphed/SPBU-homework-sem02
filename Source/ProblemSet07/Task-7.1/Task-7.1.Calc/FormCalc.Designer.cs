@@ -57,7 +57,8 @@
             this.textBox.Name = "textBox";
             this.textBox.Size = new System.Drawing.Size(278, 26);
             this.textBox.TabIndex = 0;
-            this.textBox.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textBox.Text = "0";
+            this.textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // buttonSymbolZero
             // 
@@ -262,7 +263,7 @@
             this.buttonOperationReset.Name = "buttonOperationReset";
             this.buttonOperationReset.Size = new System.Drawing.Size(65, 64);
             this.buttonOperationReset.TabIndex = 2;
-            this.buttonOperationReset.Text = "AC";
+            this.buttonOperationReset.Text = "C";
             this.buttonOperationReset.UseVisualStyleBackColor = false;
             this.buttonOperationReset.Click += new System.EventHandler(this.ButtonOperationReset_Click);
             // 

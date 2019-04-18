@@ -41,14 +41,6 @@ namespace Task_7._1.Calc
             }
         }
 
-
-        private void TextBox_TextChanged(object sender, EventArgs e)
-        {
-            GuardFromUpdates(() => {
-                _c.HandleUserTextChange(textBox.Text);
-            });
-        }
-
         private void ButtonSymbolZero_Click(object sender, EventArgs e)
         {
             GuardFromUpdates(() => {
@@ -59,7 +51,7 @@ namespace Task_7._1.Calc
         private void ButtonOperationNegate_Click(object sender, EventArgs e)
         {
             GuardFromUpdates(() => {
-                _c.HandleOperation(OperationType.Negate);
+                _c.HandleSpecialSymbol(SymbolType.Negate);
             });
         }
 
@@ -80,14 +72,14 @@ namespace Task_7._1.Calc
         private void ButtonOperationDivide_Click(object sender, EventArgs e)
         {
             GuardFromUpdates(() => {
-                _c.HandleOperation(OperationType.Divide);
+                _c.HandleSpecialSymbol(SymbolType.Divide);
             });
         }
 
         private void ButtonOperationEqual_Click(object sender, EventArgs e)
         {
             GuardFromUpdates(() => {
-                _c.HandleOperation(OperationType.Equal);
+                _c.HandleSpecialSymbol(SymbolType.Equal);
             });
         }
 
@@ -101,7 +93,7 @@ namespace Task_7._1.Calc
         private void ButtonOperationReset_Click(object sender, EventArgs e)
         {
             GuardFromUpdates(() => {
-                _c.HandleOperation(OperationType.Reset);
+                _c.HandleSpecialSymbol(SymbolType.Reset);
             });
         }
 
@@ -150,35 +142,35 @@ namespace Task_7._1.Calc
         private void ButtonOperationDot_Click(object sender, EventArgs e)
         {
             GuardFromUpdates(() => {
-                _c.HandleOperation(OperationType.Dot);
+                _c.HandleSpecialSymbol(SymbolType.Dot);
             });
         }
 
         private void ButtonOperationPercent_Click(object sender, EventArgs e)
         {
             GuardFromUpdates(() => {
-                _c.HandleOperation(OperationType.Percent);
+                _c.HandleSpecialSymbol(SymbolType.Percent);
             });
         }
 
         private void ButtonOperationMultiply_Click(object sender, EventArgs e)
         {
             GuardFromUpdates(() => {
-                _c.HandleOperation(OperationType.Multiply);
+                _c.HandleSpecialSymbol(SymbolType.Multiply);
             });
         }
 
         private void ButtonOperationSubtract_Click(object sender, EventArgs e)
         {
             GuardFromUpdates(() => {
-                _c.HandleOperation(OperationType.Subtract);
+                _c.HandleSpecialSymbol(SymbolType.Subtract);
             });
         }
 
         private void ButtonOperationAdd_Click(object sender, EventArgs e)
         {
             GuardFromUpdates(() => {
-                _c.HandleOperation(OperationType.Add);
+                _c.HandleSpecialSymbol(SymbolType.Add);
             });
         }
     }

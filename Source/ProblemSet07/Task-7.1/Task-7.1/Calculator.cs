@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 namespace Task_7._1
 {
@@ -11,134 +7,162 @@ namespace Task_7._1
     {
         public event Action<string> OnTextChange;
 
-        private string _currentText = string.Empty;
+        private string _statusLineText = string.Empty;
 
-        private double _prevVal = double.NaN;
+        private decimal _prevVal = default(decimal);
 
-        private OperationType _currenOperation = OperationType.None;
+        private bool _lastActionIsOperation;
+
+        private SymbolType _currentSymbol = SymbolType.None;
 
         public void HandleDigit(int number)
         {
-            _currentText += number.ToString();
-            OnTextChange(_currentText);
+            var text = _lastActionIsOperation ? number.ToString() : _statusLineText + number.ToString();
+            _statusLineText = decimal.TryParse(text, out var val) ? val.ToString() : text;
+
+            OnTextChange(_statusLineText);
+            _lastActionIsOperation = false;
         }
 
-        private void PerformOperation(OperationType operation,
-            double lastValue,
-            double currentValue)
+        public void HandleSpecialSymbol(SymbolType symbol)
         {
-            switch (operation)
+            if (symbol == SymbolType.Dot)
             {
-                case OperationType.Add:
-                    {
-                        var result = lastValue + currentValue;
-                        _currentText = result.ToString();
-                        OnTextChange(_currentText);
-                    }
-                    break;
-            }
-        }
-
-        public void HandleOperation(OperationType opType)
-        {
-            switch(opType)
-            {
-                case OperationType.Equal:
-                    {
-                        if (Double.TryParse(_currentText, out double myVal))
-                        {
-                            if (_currenOperation != OperationType.None)
-                            {
-                                PerformOperation(_currenOperation,
-                                    _prevVal, myVal);
-                            }
-                        }
-                    }
-                    break;
-                case OperationType.Add:
-                    {
-                        if (Double.TryParse(_currentText, out double myVal))
-                        {
-                            if (double.IsNaN(_prevVal))
-                            {
-                                PerformOperation(_currenOperation, _prevVal, myVal);
-                                _currenOperation = OperationType.Add;
-                            }
-                        }
-                    }
-                    break;
-            }
-        }
-
-        private void ChangeTextOnScreen(string text)
-        {
-            _currentText = text;
-            if (OnTextChange != null)
-            {
-                OnTextChange(_currentText);
-            }
-        }
-
-        public void HandleUserTextChange(string newText)
-        {
-            void CutOperationFromText()
-            {
-                _currentText = newText.Substring(0, newText.Length - 1);
-                OnTextChange(_currentText);
+                _statusLineText = _lastActionIsOperation ? "0." : _statusLineText + ".";
+                OnTextChange(_statusLineText);
+                _lastActionIsOperation = false;
+                return;
             }
 
-            if (newText == _currentText)
+            _lastActionIsOperation = true;
+
+            if (symbol == SymbolType.Reset)
+            {
+                _statusLineText = "0";
+                _prevVal = 0;
+                _currentSymbol = SymbolType.None;
+                OnTextChange(_statusLineText);
+                return;
+            }
+
+            if (!decimal.TryParse(_statusLineText, out decimal currentValue))
             {
                 return;
             }
-            if (newText.Length > 0)
+
+            switch (symbol)
             {
-                var possibleOp = newText.Substring(newText.Length - 1, 1);
-                switch(possibleOp)
+                case SymbolType.Negate:
                 {
-                    case "+":
-                        CutOperationFromText();
-                        HandleOperation(OperationType.Add);
-                        return;
-                    case "-":
-                        CutOperationFromText();
-                        HandleOperation(OperationType.Subtract);
-                        return;
-                    case "*":
-                        CutOperationFromText();
-                        HandleOperation(OperationType.Multiply);
-                        return;
-                    case "/":
-                        CutOperationFromText();
-                        HandleOperation(OperationType.Divide);
-                        return;
-                    case "=":
-                        CutOperationFromText();
-                        HandleOperation(OperationType.Equal);
-                        return;
+                    PerformInternalOperation(SymbolType.Negate, _prevVal, currentValue);
+                    _currentSymbol = SymbolType.None;
+                    break;
                 }
+
+                case SymbolType.Equal:
+                    {
+                        PerformInternalOperation(_currentSymbol, _prevVal, currentValue);
+                        _currentSymbol = SymbolType.None;
+                        break;
+                    }
+
+                case SymbolType.Add:
+                    {
+                        PerformInternalOperation(_currentSymbol, _prevVal, currentValue);
+                        _currentSymbol = SymbolType.Add;
+                        break;
+                    }
+
+                case SymbolType.Subtract:
+                    {
+                        PerformInternalOperation(_currentSymbol, _prevVal, currentValue);
+                        _currentSymbol = SymbolType.Subtract;
+                        break;
+                    }
+
+                case SymbolType.Multiply:
+                    {
+                        PerformInternalOperation(_currentSymbol, _prevVal, currentValue);
+                        _currentSymbol = SymbolType.Multiply;
+                        break;
+                    }
+
+                case SymbolType.Divide:
+                    {
+                        PerformInternalOperation(_currentSymbol, _prevVal, currentValue);
+                        _currentSymbol = SymbolType.Divide;
+                        break;
+                    }
+            }
+        }
+
+        private void PerformInternalOperation(SymbolType currentSymbol, decimal prevVal, decimal myVal)
+        {
+            if (currentSymbol == SymbolType.None)
+            {
+                // stores previous value
+                if (decimal.TryParse(_statusLineText, out var val))
+                {
+                    _prevVal = val;
+                }
+
+                return;
             }
 
-            if (newText.Contains("x"))
+            PerformArithmeticOperation(currentSymbol, prevVal, myVal);
+        }
+
+        // only supports arithmetic operations
+        private void PerformArithmeticOperation(SymbolType symbol, decimal left, decimal right)
+        {
+            decimal result;
+
+            void Success()
             {
-                ChangeTextOnScreen("????");
-            }
-            else
-            {
-                _currentText = newText;
+                _statusLineText = result.ToString();
+                OnTextChange(_statusLineText);
+                _prevVal = result;
             }
 
-            /*
-            var r = new Regex("/[0-9]/");
-            if (!r.Match(newText).Success)
+            void Failed(string message)
             {
-                ChangeTextOnScreen("????");
+                _statusLineText = message;
+                OnTextChange(_statusLineText);
             }
-            else
+
+            switch (symbol)
             {
-                // something else
+                case SymbolType.Negate:
+                    result = -right;
+                    Success();
+                    break;
+                case SymbolType.Add:
+                    result = left + right;
+                    Success();
+                    break;
+                case SymbolType.Subtract:
+                    result = left - right;
+                    Success();
+                    break;
+                case SymbolType.Multiply:
+                    result = left * right;
+                    Success();
+                    break;
+                case SymbolType.Divide:
+                    if (right == 0)
+                    {
+                        Failed("Cannot divide by zero");
+                    }
+                    else
+                    {
+                        result = left / right;
+                        Success();
+                    }
+
+                    break;
+                default:
+                    return;
             }
-            */
         }
     }
 }
