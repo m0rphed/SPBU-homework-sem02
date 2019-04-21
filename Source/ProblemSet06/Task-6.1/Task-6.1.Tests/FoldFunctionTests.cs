@@ -7,9 +7,9 @@
     public class FoldFunctionTests
     {
         [Test]
-        public void SumTheSequence()
+        public static void SumTheSequence()
         {
-            var sut = new List<int>() { 1, 2, 3, 5, 8 };
+            var sut = new List<int> { 1, 2, 3, 5, 8 };
             int SequenceSum(int acc, int elem) => acc + elem;
 
             var actual = HigherOrderFunctionsForList<int>.Fold(sut, 0, SequenceSum);
@@ -17,9 +17,9 @@
         }
 
         [Test]
-        public void MultiplyTheSequence()
+        public static void MultiplyTheSequence()
         {
-            var sut = new List<double>() { 1.1, 2.2, 3.3, 4.4, 5.5 };
+            var sut = new List<double> { 1.1, 2.2, 3.3, 4.4, 5.5 };
             double SequenceProduct(double acc, double elem) => acc * elem;
 
             var actual = HigherOrderFunctionsForList<double>.Fold(sut, 1, SequenceProduct);
@@ -27,9 +27,9 @@
         }
 
         [Test]
-        public void ConcatenateStringsUsingFold()
+        public static void ConcatenateStringsUsingFold()
         {
-            var sut = new List<string>() { "Наши", "Боги", "Под", "Водой!" };
+            var sut = new List<string> { "Наши", "Боги", "Под", "Водой!" };
             string SequenceProduct(string acc, string elem) => $"{acc}{elem}";
 
             var expected = string.Join(string.Empty, sut);
