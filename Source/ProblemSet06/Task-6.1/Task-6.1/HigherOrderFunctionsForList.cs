@@ -58,12 +58,13 @@
         /// <returns>Accumulated value as a result of passing through the entire list</returns>
         public static T Fold(List<T> list, T acc, Func<T, T, T> function)
         {
+            var temp = acc;
             foreach (var elem in list)
             {
-                acc = function(acc, elem);
+                temp = function(temp, elem);
             }
 
-            return acc;
+            return temp;
         }
     }
 }
