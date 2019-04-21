@@ -4,7 +4,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class FoldFunctionTests
+    public static class FoldFunctionTests
     {
         [Test]
         public static void SumTheSequence()

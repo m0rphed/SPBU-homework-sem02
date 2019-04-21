@@ -4,7 +4,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class MapFunctionTests
+    public static class MapFunctionTests
     {
         [Test]
         public static void PowerOfTwoForDoubles()

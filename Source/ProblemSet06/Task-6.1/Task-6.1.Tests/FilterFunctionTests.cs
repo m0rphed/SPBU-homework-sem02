@@ -5,7 +5,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class FilterFunctionTests
+    public static class FilterFunctionTests
     {
         [Test]
         public static void IsPositiveElements()
