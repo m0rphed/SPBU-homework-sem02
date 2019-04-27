@@ -20,7 +20,7 @@
             Console.BufferHeight = Console.WindowHeight;
             Console.BufferWidth = Console.WindowWidth + 1;
 
-            Console.Title = "The Game";
+            Console.Title = "The Adventures Of Brave @";
             Console.Clear();
 
             Console.CursorLeft = 0;
@@ -44,9 +44,12 @@
         /// <param name="isVisible">boolean flag</param>
         public void DrawPlayer(Position position, bool isVisible)
         {
+            var color = Console.ForegroundColor;
             Console.CursorLeft = position.X;
             Console.CursorTop = position.Y;
+            Console.ForegroundColor = isVisible ? ConsoleColor.DarkRed : color;
             Console.Write(isVisible ? "@" : " ");
+            Console.ForegroundColor = color;
         }
     }
 }

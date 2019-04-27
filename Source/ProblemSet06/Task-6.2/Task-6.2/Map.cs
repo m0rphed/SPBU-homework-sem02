@@ -21,11 +21,14 @@
         /// <param name="fileName">filename of map configuration file</param>
         public Map(string fileName = "map.txt")
         {
-            _cells = File.ReadAllLines(fileName);
+            _cells = File.ReadAllLines(fileName)
+                .Select(x => x.Replace("\t", string.Empty.PadRight(4)))
+                .ToArray();
+
             Height = _cells.Length - 1;
             Width = _cells.Select(x => x.Length).Max();
-            var p = _cells[_cells.Length - 1].Split(',');
-            StartUpPosition = new Position(Convert.ToInt32(p[0]), Convert.ToInt32(p[1]));
+            var playerPosition = _cells[_cells.Length - 1].Split(',');
+            StartUpPosition = new Position(Convert.ToInt32(playerPosition[0]), Convert.ToInt32(playerPosition[1]));
         }
 
         public int Height { get; private set; }
