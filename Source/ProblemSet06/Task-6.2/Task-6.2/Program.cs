@@ -1,10 +1,10 @@
 ﻿namespace Task_6.Problem2
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
-            var map = new Map();
+            var map = new Map("map.txt");
             var vc = new VirtualConsole();
             vc.RenderMap(map);
 

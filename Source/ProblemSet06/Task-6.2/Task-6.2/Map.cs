@@ -19,7 +19,7 @@
         /// Reads map and startup position from the configuration file
         /// </summary>
         /// <param name="fileName">filename of map configuration file</param>
-        public Map(string fileName = "map.txt")
+        public Map(string fileName)
         {
             _cells = File.ReadAllLines(fileName)
                 .Select(x => x.Replace("\t", string.Empty.PadRight(4)))
