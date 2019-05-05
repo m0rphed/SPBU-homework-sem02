@@ -90,7 +90,11 @@
         public void ClearMethodTest()
         {
             var sut = _createList();
-            sut.Add("something");
+
+            sut.Add("Something strange");
+            sut.Add("Spooky spider");
+            sut.Add("Angry snake");
+
             sut.Clear();
             Assert.AreEqual(0, sut.Count);
 
@@ -103,20 +107,20 @@
         public void CopyToMethodTest()
         {
             var sut = _createList();
-            var res = new string[]
+            var res = new[]
             {
                 "0", "1", "2", "3", "4",
                 "5", "6", "7", "8", "9",
                 "10", "11", "12", "13", "14"
             };
 
-            foreach (var item in new[] {"W0", "W1", "W2", "W3", "W4"})
+            foreach (var item in new[] { "W0", "W1", "W2", "W3", "W4" })
             {
                 sut.Add(item);
             }
 
             sut.CopyTo(res, 5);
-            Assert.AreEqual(new []
+            Assert.AreEqual(new[]
             {
                 "0", "1", "2", "3", "4",
                 "W0", "W1", "W2", "W3", "W4",
@@ -172,12 +176,4 @@
             Assert.AreEqual("something", sut[0]);
         }
     }
-
-    // public IEnumerator<T> GetEnumerator()
-    // IEnumerator IEnumerable.GetEnumerator()
-    // public int IndexOf(T item)
-    // public void Insert(int index, T item)
-    // public void RemoveAt(int index)
-    // T this[int index]
-
 }
