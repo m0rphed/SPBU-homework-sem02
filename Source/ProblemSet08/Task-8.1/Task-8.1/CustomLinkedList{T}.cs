@@ -130,11 +130,6 @@
                 throw new EmptyListException("Could not delete from empty list");
             }
 
-            if (!Contains(value))
-            {
-                throw new Exception($"Value: {value} is not contained in the list");
-            }
-
             if (ElementEquals(Head.Value, value))
             {
                 Head = Head.Next;
@@ -166,6 +161,12 @@
         /// Gets a value indicating whether the IList is read-only
         /// </summary>
         public bool IsReadOnly => false;
+
+        public T this[int index]
+        {
+            get => GetValueByPosition(index);
+            set => ResetValueOnPosition(value, index);
+        }
 
         /// <summary>
         /// Returns an enumerator that iterates through the list
@@ -300,12 +301,6 @@
             }
 
             return false;
-        }
-
-        public T this[int index]
-        {
-            get => GetValueByPosition(index);
-            set => ResetValueOnPosition(value, index);
         }
     }
 }
