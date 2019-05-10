@@ -1,0 +1,64 @@
+﻿using System;
+
+namespace ProblemSet04.Task01.Tests
+{
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class ExpressionTreeTests
+    {
+        [Test]
+        public void TestParseNumber()
+        {
+            var expression = "-2";
+            var sut = new ExpressionTree(expression);
+            Assert.AreEqual("-2", sut.Print());
+        }
+
+        [Test]
+        public void TestParseExpression()
+        {
+            var expression = "( + 2 2 )";
+            var sut = new ExpressionTree(expression);
+            Assert.AreEqual("( 2 + 2 )", sut.Print());
+        }
+
+        [Test]
+        public void TestParseExpressionWithSubExpession()
+        {
+            var expression = "( + 2 ( * 3 4 ) )";
+            var sut = new ExpressionTree(expression);
+            Assert.AreEqual("( 2 + ( 3 * 4 ) )", sut.Print());
+        }
+
+        [Test]
+        public void TestCalculateExpressionWithSubExpession()
+        {
+            var expression = "( + 2 ( * 3 4 ) )";
+            var sut = new ExpressionTree(expression);
+            Assert.AreEqual(14, sut.Calculate());
+        }
+
+        [Test]
+        public void TestExpressionWithZeros()
+        {
+            var expression = "( - 0 ( / 0 0 ) )";
+            var sut = new ExpressionTree(expression);
+
+            Assert.Throws<DivideByZeroException>(() =>
+            {
+                sut.Calculate();
+            });
+
+            Assert.AreEqual("( 0 - ( 0 / 0 ) )", sut.Print());
+        }
+
+        [Test]
+        public void TestExpressionWithQestionableDivision()
+        {
+            var expression = "( + 0 ( / 2 4 ) )";
+            var sut = new ExpressionTree(expression);
+            Assert.AreEqual(0, sut.Calculate());
+        }
+    }
+}
