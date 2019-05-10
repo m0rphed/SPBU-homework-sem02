@@ -8,7 +8,7 @@ namespace ProblemSet04.Task01.Tests
     public class ExpressionTreeTests
     {
         [Test]
-        public void TestParseNumber()
+        public static void TestParseNumber()
         {
             var expression = "-2";
             var sut = new ExpressionTree(expression);
@@ -16,7 +16,7 @@ namespace ProblemSet04.Task01.Tests
         }
 
         [Test]
-        public void TestParseExpression()
+        public static void TestParseExpression()
         {
             var expression = "( + 2 2 )";
             var sut = new ExpressionTree(expression);
@@ -24,7 +24,7 @@ namespace ProblemSet04.Task01.Tests
         }
 
         [Test]
-        public void TestParseExpressionWithSubExpession()
+        public static void TestParseExpressionWithSubExpession()
         {
             var expression = "( + 2 ( * 3 4 ) )";
             var sut = new ExpressionTree(expression);
@@ -32,7 +32,7 @@ namespace ProblemSet04.Task01.Tests
         }
 
         [Test]
-        public void TestCalculateExpressionWithSubExpession()
+        public static void TestCalculateExpressionWithSubExpession()
         {
             var expression = "( + 2 ( * 3 4 ) )";
             var sut = new ExpressionTree(expression);
@@ -40,7 +40,7 @@ namespace ProblemSet04.Task01.Tests
         }
 
         [Test]
-        public void TestExpressionWithZeros()
+        public static void TestExpressionWithZeros()
         {
             var expression = "( - 0 ( / 0 0 ) )";
             var sut = new ExpressionTree(expression);
@@ -54,7 +54,7 @@ namespace ProblemSet04.Task01.Tests
         }
 
         [Test]
-        public void TestExpressionWithQestionableDivision()
+        public static void TestExpressionWithQestionableDivision()
         {
             var expression = "( + 0 ( / 2 4 ) )";
             var sut = new ExpressionTree(expression);

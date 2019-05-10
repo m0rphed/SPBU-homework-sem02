@@ -64,7 +64,7 @@
 
             while (true)
             {
-                if (sk.Count == 0 & currentState == State.WaitingEndOfNumber)
+                if (sk.Count == 0 && currentState == State.WaitingEndOfNumber)
                 {
                     return ProcessNumber();
                 }
@@ -115,7 +115,7 @@
                                 case '-':
                                     return new Minus(currentLeft, currentRight);
                                 default:
-                                    throw new IndexOutOfRangeException($"Unknown operation{currentSymbol}");
+                                    throw new IndexOutOfRangeException($"Unknown operation {currentSymbol}");
                             }
                         }
 
