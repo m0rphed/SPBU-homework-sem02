@@ -11,7 +11,7 @@
     /// </summary>
     public sealed class ExpressionTree
     {
-        private readonly TreeNode _root;
+        private readonly ITreeNode _root;
 
         public ExpressionTree(string expression)
         {
@@ -24,7 +24,7 @@
             _root = CreateNode(sk);
         }
 
-        public enum State
+        private enum State
         {
             WaitingExpressionOrNumber,
             WaitingEndOfNumber,
@@ -36,10 +36,10 @@
 
         public int Calculate() => _root.Calculate();
 
-        private static TreeNode CreateNode(Stack<char> sk)
+        private static ITreeNode CreateNode(Stack<char> sk)
         {
-            TreeNode currentLeft = null;
-            TreeNode currentRight = null;
+            ITreeNode currentLeft = null;
+            ITreeNode currentRight = null;
             var currentSymbol = '?';
 
             var currentValue = string.Empty;
@@ -53,7 +53,7 @@
                 currentState = State.WaitingEndOfExpression;
             }
 
-            TreeNode ProcessNumber()
+            ITreeNode ProcessNumber()
             {
                 var val = currentValue;
                 currentValue = string.Empty;

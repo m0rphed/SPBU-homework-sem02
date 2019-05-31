@@ -1,6 +1,9 @@
 ﻿namespace ProblemSet04.Task01
 {
-    public class Number : TreeNode
+    /// <summary>
+    /// Represent number as node in the expression tree.
+    /// </summary>
+    public class Number : ITreeNode
     {
         public Number(int value)
         {
@@ -9,8 +12,16 @@
 
         public int Value { get; }
 
-        public override int Calculate() => Value;
+        /// <summary>
+        /// Returns numeric value.
+        /// </summary>
+        /// <returns>numeric value</returns>
+        public int Calculate() => Value;
 
-        public override string Print() => Value.ToString();
+        /// <summary>
+        /// Returns string which represents numeric value.
+        /// </summary>
+        /// <returns>string which represents numeric value</returns>
+        public string Print() => Value.ToString();
     }
 }

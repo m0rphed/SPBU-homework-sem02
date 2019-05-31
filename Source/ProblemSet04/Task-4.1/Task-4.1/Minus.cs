@@ -2,11 +2,12 @@
 {
     public class Minus : Operator
     {
-        public Minus(TreeNode left, TreeNode right)
+        public Minus(ITreeNode left, ITreeNode right)
             : base(left, right, "-")
         {
         }
 
+        /// <inheritdoc/>
         public override int Calculate() => Left.Calculate() - Right.Calculate();
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace ProblemSet04.Task01.Tests
+﻿namespace ProblemSet04.Task01.Tests
 {
+    using System;
     using NUnit.Framework;
 
     [TestFixture]
