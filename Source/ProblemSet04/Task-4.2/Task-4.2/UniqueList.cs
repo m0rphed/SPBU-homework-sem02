@@ -35,5 +35,16 @@
 
             return base.Remove(value);
         }
+
+        /// <inheritdoc/>
+        public override void AddValueOnPosition(T value, int position)
+        {
+            if (Contains(value))
+            {
+                throw new AddContainedValueException($"The value:{value} is already in the list");
+            }
+
+            base.AddValueOnPosition(value, position);
+        }
     }
 }

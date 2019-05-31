@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="AddContainedValueException.cs" />
     <Compile Include="RemoveNotContainedValueException.cs" />
-    <Compile Include="CustomListElement{T}.cs" />
     <Compile Include="CustomList{T}.cs" />
     <Compile Include="EmptyListException.cs" />
     <Compile Include="GlobalSuppressions.cs" />

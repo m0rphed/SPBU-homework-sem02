@@ -2,7 +2,6 @@
 {
     using System;
 
-    /// <inheritdoc />
     /// <summary>
     /// Exception is thrown when trying to remove value which does not belong to the list
     /// </summary>

@@ -10,11 +10,6 @@
     public class CustomList<T>
     {
         /// <summary>
-        /// Gets pointer to the first element
-        /// </summary>
-        public CustomListElement<T> Head { get; private set; }
-
-        /// <summary>
         /// Gets number of elements of the list
         /// </summary>
         public int Length { get; private set; }
@@ -24,6 +19,11 @@
         /// </summary>
         public bool IsReadOnly => false;
 
+        /// <summary>
+        /// Gets pointer to the first element
+        /// </summary>
+        private CustomListElement<T> Head { get; set; }
+
         public T this[int index] => GetValueByPosition(index);
 
         /// <summary>
@@ -32,7 +32,7 @@
         /// </summary>
         /// <param name="value">new value to add</param>
         /// <param name="position">index in the list</param>
-        public void AddValueOnPosition(T value, int position)
+        public virtual void AddValueOnPosition(T value, int position)
         {
             if (position < 0 || position > Length)
             {
@@ -70,26 +70,10 @@
         }
 
         /// <summary>
-        /// Gets element by position
-        /// </summary>
-        /// <param name="position">position of the element</param>
-        /// <returns>element on specified position</returns>
-        public CustomListElement<T> GetElementByPosition(int position)
-        {
-            var cursor = Head;
-            for (var i = 0; i < position; ++i)
-            {
-                cursor = cursor.Next;
-            }
-
-            return cursor;
-        }
-
-        /// <summary>
         /// Deletes element on specified position
         /// </summary>
         /// <param name="position">index of element to delete</param>
-        public virtual void RemoveElementByPosition(int position)
+        public void RemoveElementByPosition(int position)
         {
             if (Length == 0)
             {
@@ -223,6 +207,51 @@
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Gets element by position
+        /// </summary>
+        /// <param name="position">position of the element</param>
+        /// <returns>element on specified position</returns>
+        private CustomListElement<T> GetElementByPosition(int position)
+        {
+            var cursor = Head;
+            for (var i = 0; i < position; ++i)
+            {
+                cursor = cursor.Next;
+            }
+
+            return cursor;
+        }
+
+        /// <summary>
+        /// Class implements element of linked list
+        /// </summary>
+        /// <typeparam name="T">type of value</typeparam>
+        private class CustomListElement<T>
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="CustomListElement{T}"/> class.
+            /// Explicit constructor.
+            /// </summary>
+            /// <param name="value">value of element</param>
+            /// <param name="next">pointer to the next element</param>
+            public CustomListElement(T value, CustomListElement<T> next)
+            {
+                this.Value = value;
+                this.Next = next;
+            }
+
+            /// <summary>
+            /// Gets or sets pointer to the next element
+            /// </summary>
+            public CustomListElement<T> Next { get; set; }
+
+            /// <summary>
+            /// Gets or sets value of element
+            /// </summary>
+            public T Value { get; set; }
         }
 
         private static bool ElementEquals(T left, T right) => object.Equals(left, right);
