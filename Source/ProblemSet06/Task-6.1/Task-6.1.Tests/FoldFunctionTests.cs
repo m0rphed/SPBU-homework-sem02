@@ -22,7 +22,7 @@
             var sut = new List<double> { 1.1, 2.2, 3.3, 4.4, 5.5 };
             double SequenceProduct(double acc, double elem) => acc * elem;
 
-            var actual = HigherOrderFunctionsForList<double>.Fold(sut, 1, SequenceProduct);
+            var actual = HigherOrderFunctionsForList<double>.Fold(sut, 1.0, SequenceProduct);
             Assert.AreEqual(193.2612, actual, 0.0001);
         }
 

@@ -13,9 +13,9 @@
         /// <returns>
         /// linked list obtained by applying the passed function to each element
         /// </returns>
-        public static List<T> Map(List<T> list, Func<T, T> function)
+        public static List<U> Map<U>(List<T> list, Func<T, U> function)
         {
-            var mapped = new List<T>();
+            var mapped = new List<U>();
 
             foreach (var elem in list)
             {
@@ -56,7 +56,7 @@
         /// <param name="acc">accumulated value</param>
         /// <param name="function">passed function</param>
         /// <returns>Accumulated value as a result of passing through the entire list</returns>
-        public static T Fold(List<T> list, T acc, Func<T, T, T> function)
+        public static U Fold<U>(List<T> list, U acc, Func<U, T, U> function)
         {
             var temp = acc;
             foreach (var elem in list)
