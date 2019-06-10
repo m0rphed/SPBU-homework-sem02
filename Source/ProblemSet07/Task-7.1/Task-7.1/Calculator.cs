@@ -1,51 +1,50 @@
-﻿using System;
-using System.Diagnostics.Contracts;
-
-namespace Task_7._1
+﻿namespace Task_7._1
 {
+    using System;
+
     public class Calculator : ICalculator
     {
+        private string statusLineText = string.Empty;
+
+        private decimal prevVal = default;
+
+        private bool lastActionIsOperation;
+
+        private SymbolType currentSymbol = SymbolType.None;
+
         public event Action<string> OnTextChange;
-
-        private string _statusLineText = string.Empty;
-
-        private decimal _prevVal = default(decimal);
-
-        private bool _lastActionIsOperation;
-
-        private SymbolType _currentSymbol = SymbolType.None;
 
         public void HandleDigit(int number)
         {
-            var text = _lastActionIsOperation ? number.ToString() : _statusLineText + number.ToString();
-            _statusLineText = decimal.TryParse(text, out var val) ? val.ToString() : text;
+            var text = lastActionIsOperation ? number.ToString() : statusLineText + number.ToString();
+            statusLineText = decimal.TryParse(text, out var val) ? val.ToString() : text;
 
-            OnTextChange(_statusLineText);
-            _lastActionIsOperation = false;
+            OnTextChange(statusLineText);
+            lastActionIsOperation = false;
         }
 
         public void HandleSpecialSymbol(SymbolType symbol)
         {
             if (symbol == SymbolType.Dot)
             {
-                _statusLineText = _lastActionIsOperation ? "0." : _statusLineText + ".";
-                OnTextChange(_statusLineText);
-                _lastActionIsOperation = false;
+                statusLineText = lastActionIsOperation ? "0." : statusLineText + ".";
+                OnTextChange(statusLineText);
+                lastActionIsOperation = false;
                 return;
             }
 
-            _lastActionIsOperation = true;
+            lastActionIsOperation = true;
 
             if (symbol == SymbolType.Reset)
             {
-                _statusLineText = "0";
-                _prevVal = 0;
-                _currentSymbol = SymbolType.None;
-                OnTextChange(_statusLineText);
+                statusLineText = "0";
+                prevVal = 0;
+                currentSymbol = SymbolType.None;
+                OnTextChange(statusLineText);
                 return;
             }
 
-            if (!decimal.TryParse(_statusLineText, out decimal currentValue))
+            if (!decimal.TryParse(statusLineText, out decimal currentValue))
             {
                 return;
             }
@@ -54,43 +53,43 @@ namespace Task_7._1
             {
                 case SymbolType.Negate:
                 {
-                    PerformInternalOperation(SymbolType.Negate, _prevVal, currentValue);
-                    _currentSymbol = SymbolType.None;
+                    PerformInternalOperation(SymbolType.Negate, prevVal, currentValue);
+                    currentSymbol = SymbolType.None;
                     break;
                 }
 
                 case SymbolType.Equal:
                     {
-                        PerformInternalOperation(_currentSymbol, _prevVal, currentValue);
-                        _currentSymbol = SymbolType.None;
+                        PerformInternalOperation(currentSymbol, prevVal, currentValue);
+                        currentSymbol = SymbolType.None;
                         break;
                     }
 
                 case SymbolType.Add:
                     {
-                        PerformInternalOperation(_currentSymbol, _prevVal, currentValue);
-                        _currentSymbol = SymbolType.Add;
+                        PerformInternalOperation(currentSymbol, prevVal, currentValue);
+                        currentSymbol = SymbolType.Add;
                         break;
                     }
 
                 case SymbolType.Subtract:
                     {
-                        PerformInternalOperation(_currentSymbol, _prevVal, currentValue);
-                        _currentSymbol = SymbolType.Subtract;
+                        PerformInternalOperation(currentSymbol, prevVal, currentValue);
+                        currentSymbol = SymbolType.Subtract;
                         break;
                     }
 
                 case SymbolType.Multiply:
                     {
-                        PerformInternalOperation(_currentSymbol, _prevVal, currentValue);
-                        _currentSymbol = SymbolType.Multiply;
+                        PerformInternalOperation(currentSymbol, prevVal, currentValue);
+                        currentSymbol = SymbolType.Multiply;
                         break;
                     }
 
                 case SymbolType.Divide:
                     {
-                        PerformInternalOperation(_currentSymbol, _prevVal, currentValue);
-                        _currentSymbol = SymbolType.Divide;
+                        PerformInternalOperation(currentSymbol, prevVal, currentValue);
+                        currentSymbol = SymbolType.Divide;
                         break;
                     }
             }
@@ -101,9 +100,9 @@ namespace Task_7._1
             if (currentSymbol == SymbolType.None)
             {
                 // stores previous value
-                if (decimal.TryParse(_statusLineText, out var val))
+                if (decimal.TryParse(statusLineText, out var val))
                 {
-                    _prevVal = val;
+                    this.prevVal = val;
                 }
 
                 return;
@@ -119,15 +118,15 @@ namespace Task_7._1
 
             void Success()
             {
-                _statusLineText = result.ToString();
-                OnTextChange(_statusLineText);
-                _prevVal = result;
+                statusLineText = result.ToString();
+                OnTextChange(statusLineText);
+                prevVal = result;
             }
 
             void Failed(string message)
             {
-                _statusLineText = message;
-                OnTextChange(_statusLineText);
+                statusLineText = message;
+                OnTextChange(statusLineText);
             }
 
             switch (symbol)

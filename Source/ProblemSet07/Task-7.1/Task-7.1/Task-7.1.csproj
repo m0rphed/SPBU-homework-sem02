@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ICalculator.cs" />
     <Compile Include="SymbolType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
