@@ -5,7 +5,7 @@
     using Task_7._1.Tests;
 
     [TestFixture]
-    public class CalculatorTests
+    public static class CalculatorTests
     {
         [Test]
         public static void DivideByZeroMustShowMessage()
