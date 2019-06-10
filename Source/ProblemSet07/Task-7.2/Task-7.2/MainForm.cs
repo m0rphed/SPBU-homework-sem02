@@ -36,6 +36,7 @@
         private void MainForm_Load(object sender, EventArgs e)
         {
             Timer.Start();
+            Timer_Tick(this, e);
         }
 
         /// <summary>
