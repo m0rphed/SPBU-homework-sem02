@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomLinkedListElement{T}.cs" />
     <Compile Include="EmptyListException.cs" />
     <Compile Include="CustomLinkedList{T}.cs" />
     <Compile Include="GlobalSuppressions.cs" />

@@ -10,9 +10,38 @@
     public class CustomLinkedList<T> : IList<T>
     {
         /// <summary>
-        /// Pointer to the first element
+        /// Class implements element of linked list
         /// </summary>
-        public CustomLinkedListElement<T> Head { get; private set; }
+        /// <typeparam name="T">type of value</typeparam>
+        private class CustomLinkedListElement
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="CustomLinkedListElement"/> class.
+            /// Explicit constructor
+            /// </summary>
+            /// <param name="value">value of element</param>
+            /// <param name="next">pointer to the next element</param>
+            public CustomLinkedListElement(T value, CustomLinkedListElement next)
+            {
+                this.Value = value;
+                this.Next = next;
+            }
+
+            /// <summary>
+            /// Pointer to the next element
+            /// </summary>
+            public CustomLinkedListElement Next { get; set; }
+
+            /// <summary>
+            /// Value of element
+            /// </summary>
+            public T Value { get; set; }
+        }
+
+    /// <summary>
+    /// Pointer to the first element
+    /// </summary>
+    private CustomLinkedListElement Head { get; set; }
 
         /// <summary>
         /// Number of elements of the list
@@ -34,14 +63,14 @@
 
             if (position == 0)
             {
-                var newHeadElement = new CustomLinkedListElement<T>(value, Head);
+                var newHeadElement = new CustomLinkedListElement(value, Head);
                 Head = newHeadElement;
                 ++Length;
                 return;
             }
 
             var cursor = GetElementByPosition(position - 1);
-            var newElement = new CustomLinkedListElement<T>(value, cursor.Next);
+            var newElement = new CustomLinkedListElement(value, cursor.Next);
             cursor.Next = newElement;
             ++Length;
         }
@@ -62,7 +91,7 @@
             return cursor.Value;
         }
 
-        public CustomLinkedListElement<T> GetElementByPosition(int position)
+        private CustomLinkedListElement GetElementByPosition(int position)
         {
             var cursor = Head;
             for (var i = 0; i < position; ++i)
@@ -273,7 +302,7 @@
                 current = current.Next;
             }
 
-            previous.Next = new CustomLinkedListElement<T>(item, current);
+            previous.Next = new CustomLinkedListElement(item, current);
         }
 
         public void RemoveAt(int index)
