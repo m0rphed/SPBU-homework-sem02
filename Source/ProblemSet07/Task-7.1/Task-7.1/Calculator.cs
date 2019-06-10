@@ -6,7 +6,7 @@
     {
         private string statusLineText = string.Empty;
 
-        private decimal prevVal = default(decimal);
+        private decimal prevVal;
 
         private bool lastActionIsOperation;
 
@@ -92,6 +92,9 @@
                         currentSymbol = SymbolType.Divide;
                         break;
                     }
+
+                default:
+                    throw new InvalidOperationException("No such operation: " + symbol);
             }
         }
 
@@ -157,7 +160,6 @@
                         result = left / right;
                         Success();
                     }
-
                     break;
                 default:
                     return;

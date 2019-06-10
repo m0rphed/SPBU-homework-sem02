@@ -8,7 +8,7 @@
     public class CalculatorTests
     {
         [Test]
-        public void DivideByZeroMustShowMessage()
+        public static void DivideByZeroMustShowMessage()
         {
             var c = new CalculatorWrapper();
 
@@ -30,7 +30,7 @@
         }
 
         [Test]
-        public void AddTwoValues()
+        public static void AddTwoValues()
         {
             var c = new CalculatorWrapper();
 
@@ -53,7 +53,7 @@
         }
 
         [Test]
-        public void AddThreeValues()
+        public static void AddThreeValues()
         {
             var c = new CalculatorWrapper();
 
@@ -82,7 +82,7 @@
         }
 
         [Test]
-        public void CalcMixedStatement()
+        public static void CalcMixedStatement()
         {
             var c = new CalculatorWrapper();
 
@@ -117,7 +117,7 @@
         }
 
         [Test]
-        public void AddTwoValuesThenEnterFraction()
+        public static void AddTwoValuesThenEnterFraction()
         {
             var c = new CalculatorWrapper();
 
@@ -157,7 +157,7 @@
         }
 
         [Test]
-        public void AddTwoValuesWhenSecondWithFraction()
+        public static void AddTwoValuesWhenSecondWithFraction()
         {
             var c = new CalculatorWrapper();
 
@@ -186,7 +186,7 @@
         }
 
         [Test]
-        public void NegateInputValue()
+        public static void NegateInputValue()
         {
             var c = new CalculatorWrapper();
 
@@ -200,12 +200,10 @@
 
             c.Calculator.HandleSpecialSymbol(SymbolType.Negate);
             Assert.AreEqual("-1", c.StatusLine);
-
         }
 
-
         [Test]
-        public void AddTwoValuesNegateResult()
+        public static void AddTwoValuesNegateResult()
         {
             var c = new CalculatorWrapper();
 
@@ -229,7 +227,5 @@
             c.Calculator.HandleSpecialSymbol(SymbolType.Negate);
             Assert.AreEqual("-8", c.StatusLine);
         }
-
-
     }
 }
