@@ -6,7 +6,7 @@
     {
         private string statusLineText = string.Empty;
 
-        private decimal prevVal = default;
+        private decimal prevVal = default(decimal);
 
         private bool lastActionIsOperation;
 
