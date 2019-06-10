@@ -7,22 +7,22 @@
     /// <inheritdoc/>
     public partial class CustomSet<T> : ISet<T>
     {
-        private Node<T> _top;
+        private Node _top;
 
         public int Count { get; private set; }
 
         public bool IsReadOnly => false;
 
-        public class Node<T>
+        private class Node
         {
             public Node(T value)
             {
                 Value = value;
             }
 
-            public Node<T> Left { get; set; }
+            public Node Left { get; set; }
 
-            public Node<T> Right { get; set; }
+            public Node Right { get; set; }
 
             public T Value { get; set; }
         }
@@ -36,7 +36,7 @@
         }
 
         /// <inheritdoc/>
-        bool ISet<T>.Add(T item)
+        pubboo;l Add(T item)
         {
             return InternalAdd(item);
         }
@@ -294,7 +294,7 @@
         {
             if (_top == null)
             {
-                _top = new Node<T>(item);
+                _top = new Node (item);
                 Count++;
                 return true;
             }
@@ -302,7 +302,7 @@
             return TraverseAdd(_top, item);
         }
 
-        private bool TraverseRemove(Node<T> parent, Node<T> current, T oldItem)
+        private bool TraverseRemove(Node  parent, Node  current, T oldItem)
         {
             // precondition - current node is not null
             switch (_comparer.Compare(oldItem, current.Value))
@@ -390,7 +390,7 @@
             }
         }
 
-        private bool TraverseAdd(Node<T> current, T newItem)
+        private bool TraverseAdd(Node  current, T newItem)
         {
             // precondition - current node is not null
             switch (_comparer.Compare(newItem, current.Value))
@@ -401,7 +401,7 @@
                     if (current.Left == null)
                     {
                         Count++;
-                        current.Left = new Node<T>(newItem);
+                        current.Left = new Node (newItem);
                         return true;
                     }
                     else
@@ -413,7 +413,7 @@
                     if (current.Right == null)
                     {
                         Count++;
-                        current.Right = new Node<T>(newItem);
+                        current.Right = new Node (newItem);
                         return true;
                     }
                     else
@@ -426,7 +426,7 @@
             }
         }
 
-        private void TraverseBuildList(Node<T> current, List<T> values)
+        private void TraverseBuildList(Node  current, List<T> values)
         {
             if (current.Left != null)
             {

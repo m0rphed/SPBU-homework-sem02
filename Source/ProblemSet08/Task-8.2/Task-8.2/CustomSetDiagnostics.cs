@@ -14,9 +14,9 @@
         {
             var sb = new StringBuilder();
             var counter = 0;
-            var d = new Dictionary<Node<T>, string>();
+            var d = new Dictionary<Node, string>();
 
-            void Traverse(Node<T> current, Action<Node<T>> func)
+            void Traverse(Node current, Action<Node> func)
             {
                 if (current.Left != null)
                 {
