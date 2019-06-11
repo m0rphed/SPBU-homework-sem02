@@ -9,7 +9,7 @@
     {
         public class SimulatedEventLoop : EventLoop
         {
-            public readonly List<ConsoleKeyInfo> _sequence;
+            private readonly List<ConsoleKeyInfo> _sequence;
 
             public SimulatedEventLoop(List<ConsoleKeyInfo> sequence)
             {
@@ -38,11 +38,13 @@
 
         public class SimulatedConsole : IVirtualConsole
         {
-            public readonly List<PlayerState> RecordedState = new List<PlayerState>();
+            private readonly List<PlayerState> _recordedState = new List<PlayerState>();
+
+            public List<PlayerState> GetRecordedState() => _recordedState;
 
             public void DrawPlayer(Position position, bool isVisible)
             {
-                RecordedState.Add(new PlayerState() { Position = position, IsVisible = isVisible });
+                _recordedState.Add(new PlayerState() { Position = position, IsVisible = isVisible });
             }
         }
 
@@ -76,7 +78,7 @@
             var gameLogic = new GameLogic(map, testLoop, testConsole);
 
             testLoop.Start();
-            Assert.AreEqual(testConsole.RecordedState, expectedResults);
+            Assert.AreEqual(testConsole.GetRecordedState(), expectedResults);
         }
 
         [Test]
@@ -107,7 +109,7 @@
             var gameLogic = new GameLogic(map, testLoop, testConsole);
 
             testLoop.Start();
-            Assert.AreEqual(testConsole.RecordedState, expectedResults);
+            Assert.AreEqual(testConsole.GetRecordedState(), expectedResults);
         }
 
         [Test]
@@ -141,7 +143,7 @@
             var gameLogic = new GameLogic(map, testLoop, testConsole);
 
             testLoop.Start();
-            Assert.AreEqual(testConsole.RecordedState, expectedResults);
+            Assert.AreEqual(testConsole.GetRecordedState(), expectedResults);
         }
     }
 }
