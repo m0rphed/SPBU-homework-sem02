@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Maps keyboard keys to events
+    /// Maps keyboard keys to events.
     /// </summary>
     public class EventLoop
     {
@@ -17,16 +17,20 @@
 
         public event Action Exit;
 
+        public virtual ConsoleKeyInfo GetKey()
+        {
+            return Console.ReadKey(true);
+        }
+
         /// <summary>
         /// Starts event loop.
-        /// Tracks console input and invokes relevant events
+        /// Tracks console input and invokes relevant events.
         /// </summary>
         public void Start()
         {
             while (true)
             {
-                var input = Console.ReadKey(true);
-
+                var input = GetKey();
                 switch (input.Key)
                 {
                     case ConsoleKey.DownArrow:

@@ -3,14 +3,14 @@
     using System;
 
     /// <summary>
-    /// Represents console GUI
+    /// Represents console GUI.
     /// </summary>
-    public class VirtualConsole
+    public class VirtualConsole : IVirtualConsole
     {
         /// <summary>
-        /// Draws the map with borders
+        /// Draws the map with borders.
         /// </summary>
-        /// <param name="map">instance of a map</param>
+        /// <param name="map">instance of a map.</param>
         public void RenderMap(Map map)
         {
             Console.CursorVisible = false;
@@ -38,10 +38,10 @@
         }
 
         /// <summary>
-        /// Draws or hides player "@"
+        /// Draws or hides player "@".
         /// </summary>
-        /// <param name="position">player's position on the map</param>
-        /// <param name="isVisible">boolean flag</param>
+        /// <param name="position">player's position on the map.</param>
+        /// <param name="isVisible">boolean flag.</param>
         public void DrawPlayer(Position position, bool isVisible)
         {
             var color = Console.ForegroundColor;

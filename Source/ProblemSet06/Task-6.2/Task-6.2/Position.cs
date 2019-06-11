@@ -1,7 +1,7 @@
 ﻿namespace Task_6.Problem2
 {
     /// <summary>
-    /// Position on the map
+    /// Position on the map.
     /// </summary>
     public struct Position
     {

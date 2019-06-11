@@ -1,23 +1,23 @@
 ﻿namespace Task_6.Problem2
 {
     /// <summary>
-    /// Encapsulates state of the game and controls player on the map
+    /// Encapsulates state of the game and controls player on the map.
     /// </summary>
     public class GameLogic
     {
         private readonly Map _map;
         private readonly EventLoop _gameLoop;
-        private readonly VirtualConsole _vc;
+        private readonly IVirtualConsole _vc;
         private Position _currentPosition;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameLogic"/> class.
         /// Sets up state of the game.
         /// </summary>
-        /// <param name="map">game map</param>
-        /// <param name="gameLoop">provides events from keyboard</param>
-        /// <param name="vc">virtual console to draw all objects</param>
-        public GameLogic(Map map, EventLoop gameLoop, VirtualConsole vc)
+        /// <param name="map">game map.</param>
+        /// <param name="gameLoop">provides events from keyboard.</param>
+        /// <param name="vc">virtual console to draw all objects.</param>
+        public GameLogic(Map map, EventLoop gameLoop, IVirtualConsole vc)
         {
             _map = map;
             _currentPosition = map.StartUpPosition;
@@ -34,12 +34,17 @@
         }
 
         /// <summary>
-        /// Shifts current position of the player
+        /// Shifts current position of the player.
         /// </summary>
-        /// <param name="dx">horizontal shift</param>
-        /// <param name="dy">vertical shift</param>
+        /// <param name="dx">horizontal shift.</param>
+        /// <param name="dy">vertical shift.</param>
         private void Shift(int dx, int dy)
         {
+            if (_currentPosition.X + dx < 0 || _currentPosition.Y + dy < 0)
+            {
+                return;
+            }
+
             if (_map.IsWall(_currentPosition.X + dx, _currentPosition.Y + dy))
             {
                 return;
@@ -59,7 +64,7 @@
         private void GameLoop_MoveRight() => Shift(1, 0);
 
         /// <summary>
-        /// Stops all this madness
+        /// Stops all this madness.
         /// </summary>
         private void GameLoop_Exit()
         {
