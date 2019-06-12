@@ -12,6 +12,7 @@ environment:
   - solution_path: Source\ProblemSet04\Task-4.2\Task-4.2.sln
   - solution_path: Source\ProblemSet06\Task-6.1\Task-6.1.sln
   - solution_path: Source\ProblemSet06\Task-6.2\Task-6.2.sln
+  - solution_path: Source\ProblemSet07\Task-7.2\Task-7.2.sln
   - solution_path: Source\ProblemSet08\Task-8.1\Task-8.1.sln
   
 before_build:
